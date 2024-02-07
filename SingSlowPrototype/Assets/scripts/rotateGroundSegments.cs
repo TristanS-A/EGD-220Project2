@@ -7,6 +7,8 @@ public class rotateGroundSegments : MonoBehaviour
     public float segmentTime = 1;
     public float rotSegmentDistence = 1;
     public float rotLerpTimeTotal = 0.3f;
+    [SerializeField] private AudioClip metranomeSFX;
+    private AudioSource audioSource;
     private float currSegmentTime = 0;
     private Vector3 newRot;
     private Vector3 startLerpPos;
@@ -16,7 +18,7 @@ public class rotateGroundSegments : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -36,6 +38,7 @@ public class rotateGroundSegments : MonoBehaviour
                 StopCoroutine(currCoroutine);
             }
 
+            audioSource.PlayOneShot(metranomeSFX);
             currCoroutine = StartCoroutine(Co_StartSegmentRotation());
             currSegmentTime = 0;
         }
